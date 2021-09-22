@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/bosankus/Android-Services.svg?style=svg)](https://androidplay.in)  [![CodeFactor](https://www.codefactor.io/repository/github/bosankus/Android-Services/badge?style=plastic)](https://www.codefactor.io/repository/github/bosankus/android-services/stats)
+[![CircleCI](https://circleci.com/gh/bosankus/Android-Services.svg?style=svg)](https://androidplay.in)  [![CodeFactor](https://www.codefactor.io/repository/github/bosankus/Android-Services/badge?style=plastic)](https://www.codefactor.io/repository/github/bosankus/weatherify-mvp/stats)
 
 # Android Services
 

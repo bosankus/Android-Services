@@ -2,15 +2,14 @@
 
 # Android Services
 
-This project targets to showcase different usage of Android Service Components. Tracking progress of a task within a service with the help of broadcast receivers.
+This project targets to showcase different usage of Android Service Components.
+Track progress of network call and show in notification
 
 The app follows MVP pattern. TBH this is first time working on MVP architecture. Do check my other projects for MVVM, which I like.
 
 Few extra this app will include:
 - Network call using Retrofit
 - Usage of Coroutines for asynchronous tasks
-- Broadcast Receiver to track progress of service
-- Different kinds of Services
 - Will try to add test cases too
 
 ## Contributing

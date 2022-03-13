@@ -1,16 +1,16 @@
-package com.androidplay.services.ui
+package com.androidplay.services.view
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.androidplay.services.contract.MainContract
 import com.androidplay.services.databinding.ActivityMainBinding
-import com.androidplay.services.presenter.MainInteractor
+import com.androidplay.services.Interactor.MainInteractor
 import com.androidplay.services.presenter.MainPresenter
-import com.androidplay.services.presenter.MainView
 import com.androidplay.services.model.model.Weather
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private var binding: ActivityMainBinding? = null
     private lateinit var presenter: MainPresenter
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), MainView {
         presenter.getData()
     }
 
-    override fun setData(weather: Weather) {
+    override fun setSuccessData(weather: Weather) {
         lifecycleScope.launchWhenStarted {
             binding?.apply {
                 activityMainTemperature.text = weather.main?.temp.toString()
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), MainView {
         }
     }
 
-    override fun setFailureError(error: String) {
+    override fun setFailureData(error: String) {
         binding?.activityMainCityName?.text = error
     }
 

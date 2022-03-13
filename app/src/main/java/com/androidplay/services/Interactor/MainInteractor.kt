@@ -1,4 +1,4 @@
-package com.androidplay.services.presenter
+package com.androidplay.services.Interactor
 
 import com.androidplay.services.model.model.Weather
 import com.androidplay.services.model.repository.WeatherRepositoryImpl

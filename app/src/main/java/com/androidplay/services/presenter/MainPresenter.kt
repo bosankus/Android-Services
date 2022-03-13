@@ -1,5 +1,7 @@
 package com.androidplay.services.presenter
 
+import com.androidplay.services.Interactor.MainInteractor
+import com.androidplay.services.contract.MainContract
 import com.androidplay.services.model.model.Weather
 
 /**
@@ -8,7 +10,7 @@ import com.androidplay.services.model.model.Weather
  * Created on: 12,March,2022
  */
 class MainPresenter(
-    private var view: MainView?,
+    private var view: MainContract.View?,
     private val interactor: MainInteractor
 ) : MainInteractor.onFinishedListener {
 
@@ -19,12 +21,12 @@ class MainPresenter(
 
     override fun onSuccess(weather: Weather) {
         view?.hideProgress()
-        view?.setData(weather)
+        view?.setSuccessData(weather)
     }
 
     override fun onFailed(error: String) {
         view?.hideProgress()
-        view?.setFailureError(error)
+        view?.setFailureData(error)
     }
 
     fun onDestroy() {

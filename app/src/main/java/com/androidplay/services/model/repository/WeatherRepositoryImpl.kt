@@ -3,9 +3,7 @@ package com.androidplay.services.model.repository
 import com.androidplay.services.model.model.Weather
 import com.androidplay.services.model.network.WeatherApiInterface
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 
 /**
  * Author: Ankush Bose
@@ -14,12 +12,16 @@ import kotlinx.coroutines.flow.flowOn
  */
 class WeatherRepositoryImpl(private val api: WeatherApiInterface) : WeatherRepository {
 
-    override suspend fun getWeather(): Flow<Weather?> {
-        return flow {
-            val result: Weather? = api.getWeather()
-            if (result != null && result.main?.temp != null) emit(result)
-            else emit(null)
-        }.flowOn(Dispatchers.IO)
+    override suspend fun getWeather(): Weather? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = api.getWeather()
+                response
+            } catch (e: Exception) {
+                e.message
+                null
+            }
+        }
     }
 
     companion object {

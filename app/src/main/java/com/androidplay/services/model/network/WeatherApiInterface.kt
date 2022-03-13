@@ -21,7 +21,7 @@ interface WeatherApiInterface {
 
     /*implementation method to get current temperature of hardcoded city*/
     @GET("weather")
-    fun getWeather(
+    suspend fun getWeather(
         @Query("q") location: String = LOCATION,
         @Query("APPID") AppId: String = BuildConfig.WEATHER_KEY
     ): Weather?

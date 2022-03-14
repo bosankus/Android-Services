@@ -32,11 +32,12 @@ interface MainContract {
             // function to be called
             // once the Handler of Model class
             // completes its execution
-            fun onFinished(string: String?)
+            fun onSuccess(weather: Weather)
+            fun onFailed(error: String)
         }
 
         // method to make network request to repository, and returns success or failure
-        fun requestData(onFinishedListener: OnFinishedListener?)
+        fun requestData(areaName: String, onFinishedListener: OnFinishedListener?)
     }
 
 

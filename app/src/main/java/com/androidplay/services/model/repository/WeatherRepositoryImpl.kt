@@ -12,10 +12,10 @@ import kotlinx.coroutines.withContext
  */
 class WeatherRepositoryImpl(private val api: WeatherApiInterface) : WeatherRepository {
 
-    override suspend fun getWeather(): Weather? {
+    override suspend fun getWeather(areaName: String): Weather? {
         return withContext(Dispatchers.IO) {
             try {
-                val response = api.getWeather()
+                val response = api.getWeather(location = areaName)
                 response
             } catch (e: Exception) {
                 e.message

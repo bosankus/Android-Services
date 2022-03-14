@@ -9,6 +9,7 @@ import com.androidplay.services.databinding.ActivityMainBinding
 import com.androidplay.services.Interactor.MainInteractor
 import com.androidplay.services.presenter.MainPresenter
 import com.androidplay.services.model.model.Weather
+import com.androidplay.services.utils.Extensions.toCelsius
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
@@ -24,13 +25,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter = MainPresenter(this, MainInteractor())
 
         // calling fetch data method
-        presenter.getData()
+        presenter.getData("Bengaluru")
     }
 
     override fun setSuccessData(weather: Weather) {
         lifecycleScope.launchWhenStarted {
             binding?.apply {
-                activityMainTemperature.text = weather.main?.temp.toString()
+                activityMainTemperature.text = weather.main?.temp?.toCelsius()
                 activityMainCityName.text = weather.name
             }
         }

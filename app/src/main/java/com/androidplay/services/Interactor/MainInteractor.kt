@@ -1,5 +1,6 @@
 package com.androidplay.services.Interactor
 
+import com.androidplay.services.contract.MainContract
 import com.androidplay.services.model.model.Weather
 import com.androidplay.services.model.repository.WeatherRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
@@ -12,21 +13,19 @@ import kotlin.coroutines.CoroutineContext
  * Company: Androidplay.in
  * Created on: 12,March,2022
  */
-class MainInteractor : CoroutineScope {
+class MainInteractor : MainContract.Interactor, CoroutineScope {
 
     private val repository: WeatherRepositoryImpl = WeatherRepositoryImpl()
     private val job = SupervisorJob()
 
-    interface onFinishedListener {
-        fun onSuccess(weather: Weather)
-        fun onFailed(error: String)
-    }
-
-    fun requestData(onFinishedListener: onFinishedListener) {
+    override fun requestData(
+        areaName: String,
+        onFinishedListener: MainContract.Interactor.OnFinishedListener?
+    ) {
         launch {
-            val weather: Weather? = repository.getWeather()
-            weather?.let { onFinishedListener.onSuccess(it) }
-                ?: onFinishedListener.onFailed("No details found")
+            val weather: Weather? = repository.getWeather(areaName)
+            weather?.let { onFinishedListener?.onSuccess(it) }
+                ?: onFinishedListener?.onFailed("No details found")
         }
     }
 

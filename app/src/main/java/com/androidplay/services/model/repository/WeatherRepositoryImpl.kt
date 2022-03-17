@@ -24,7 +24,7 @@ class WeatherRepositoryImpl(private val api: WeatherApiInterface) : WeatherRepos
         }
     }
 
-    companion object {
+    /*companion object {
         private var instance: WeatherRepositoryImpl? = null
         operator fun invoke(): WeatherRepositoryImpl {
             var localInstance = instance
@@ -35,5 +35,5 @@ class WeatherRepositoryImpl(private val api: WeatherApiInterface) : WeatherRepos
             }
             return localInstance
         }
-    }
+    }*/
 }

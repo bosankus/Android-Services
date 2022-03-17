@@ -45,8 +45,5 @@ interface MainContract {
 
         // method called when activity opens
         fun getData(areaName: String)
-
-        // method called when mainActivity is destroyed
-        fun onDestroy()
     }
 }

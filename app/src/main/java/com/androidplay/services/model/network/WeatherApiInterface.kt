@@ -1,5 +1,6 @@
 package com.androidplay.services.model.network
 
+import android.app.Application
 import com.androidplay.services.BuildConfig
 import com.androidplay.services.model.model.Weather
 import com.androidplay.services.utils.Constants.LOCATION
@@ -7,6 +8,7 @@ import com.androidplay.services.utils.Constants.WEATHER_URL
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -26,12 +28,14 @@ interface WeatherApiInterface {
         @Query("APPID") AppId: String = BuildConfig.WEATHER_KEY
     ): Weather?
 
-    companion object {
+    /*companion object {
 
         private val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
 
+
+        // TODO: Provide okHttpClient with network interceptors via DI
         operator fun invoke(): WeatherApiInterface {
             return Retrofit.Builder()
                 .baseUrl(WEATHER_URL)
@@ -40,5 +44,5 @@ interface WeatherApiInterface {
                 .build()
                 .create(WeatherApiInterface::class.java)
         }
-    }
+    }*/
 }

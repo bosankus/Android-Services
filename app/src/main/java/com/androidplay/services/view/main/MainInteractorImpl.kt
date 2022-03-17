@@ -1,6 +1,6 @@
-package com.androidplay.services.Interactor
+package com.androidplay.services.view.main
 
-import com.androidplay.services.contract.MainContract
+import com.androidplay.services.BaseContract
 import com.androidplay.services.model.model.Weather
 import com.androidplay.services.model.repository.WeatherRepository
 import kotlinx.coroutines.CoroutineScope
@@ -13,14 +13,14 @@ import kotlin.coroutines.CoroutineContext
  * Company: Androidplay.in
  * Created on: 12,March,2022
  */
-class MainInteractor(private val repository: WeatherRepository) : MainContract.Interactor,
+class MainInteractorImpl(private val repository: WeatherRepository) : BaseContract.Interactor,
     CoroutineScope {
 
     private val job = SupervisorJob()
 
     override fun requestData(
         areaName: String,
-        onFinishedListener: MainContract.Interactor.OnFinishedListener?
+        onFinishedListener: BaseContract.Interactor.OnFinishedListener?
     ) {
         launch {
             val weather: Weather? = repository.getWeather(areaName)

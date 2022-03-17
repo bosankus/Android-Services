@@ -1,6 +1,6 @@
-package com.androidplay.services.presenter
+package com.androidplay.services.view.main
 
-import com.androidplay.services.contract.MainContract
+import com.androidplay.services.BaseContract
 import com.androidplay.services.model.model.Weather
 
 /**
@@ -8,10 +8,14 @@ import com.androidplay.services.model.model.Weather
  * Company: Androidplay.in
  * Created on: 12,March,2022
  */
-class MainPresenterImpl(private val interactor: MainContract.Interactor) : MainContract.Presenter,
-    MainContract.Interactor.OnFinishedListener {
+class MainPresenterImpl(private val interactor: BaseContract.Interactor) : BaseContract.Presenter,
+    BaseContract.Interactor.OnFinishedListener {
 
-    private lateinit var view: MainContract.View
+    private lateinit var view: BaseContract.View
+
+    override fun attach(view: BaseContract.View) {
+        this.view = view
+    }
 
     override fun getData(areaName: String) {
         view.showProgress()

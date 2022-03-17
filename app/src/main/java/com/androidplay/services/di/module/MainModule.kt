@@ -1,14 +1,14 @@
 package com.androidplay.services.di.module
 
 import android.content.Context
-import com.androidplay.services.Interactor.MainInteractor
-import com.androidplay.services.contract.MainContract
+import com.androidplay.services.view.main.MainInteractorImpl
+import com.androidplay.services.BaseContract
 import com.androidplay.services.model.network.ConnectivityInterceptor
 import com.androidplay.services.model.network.ConnectivityInterceptorImpl
 import com.androidplay.services.model.network.WeatherApiInterface
 import com.androidplay.services.model.repository.WeatherRepository
 import com.androidplay.services.model.repository.WeatherRepositoryImpl
-import com.androidplay.services.presenter.MainPresenterImpl
+import com.androidplay.services.view.main.MainPresenterImpl
 import com.androidplay.services.utils.Constants
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
@@ -63,10 +63,10 @@ class MainModule {
         WeatherRepositoryImpl(apiInterface)
 
     @Provides
-    fun provideInteractor(repository: WeatherRepository): MainContract.Interactor =
-        MainInteractor(repository)
+    fun provideInteractor(repository: WeatherRepository): BaseContract.Interactor =
+        MainInteractorImpl(repository)
 
     @Provides
-    fun providePresenter(interactor: MainContract.Interactor): MainContract.Presenter =
+    fun providePresenter(interactor: BaseContract.Interactor): BaseContract.Presenter =
         MainPresenterImpl(interactor)
 }

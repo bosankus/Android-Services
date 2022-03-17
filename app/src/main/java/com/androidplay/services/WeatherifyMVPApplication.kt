@@ -4,6 +4,8 @@ import android.app.Application
 import com.androidplay.services.di.component.AppComponent
 import com.androidplay.services.di.component.DaggerAppComponent
 import com.androidplay.services.di.module.AppModule
+import com.androidplay.services.di.module.ContextModule
+import com.androidplay.services.di.module.MainModule
 
 /**
  * Author: Ankush Bose
@@ -16,7 +18,8 @@ class WeatherifyMVPApplication : Application() {
 
     private fun initDagger(app: WeatherifyMVPApplication): AppComponent =
         DaggerAppComponent.builder()
-            .appModule(AppModule(app))
+            .contextModule(ContextModule(app))
+            .mainModule(MainModule())
             .build()
 
     override fun onCreate() {

@@ -1,4 +1,4 @@
-package com.androidplay.services.contract
+package com.androidplay.services
 
 import com.androidplay.services.model.model.Weather
 
@@ -7,7 +7,7 @@ import com.androidplay.services.model.model.Weather
  * Company: Androidplay.in
  * Created on: 12,March,2022
  */
-interface MainContract {
+interface BaseContract {
 
     interface View {
 
@@ -42,6 +42,9 @@ interface MainContract {
 
 
     interface Presenter {
+
+        // method to initialize view
+        fun attach(view: View)
 
         // method called when activity opens
         fun getData(areaName: String)

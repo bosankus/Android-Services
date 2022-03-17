@@ -1,6 +1,7 @@
 package com.androidplay.services.presenter
 
-import com.androidplay.services.contract.MainContract
+import com.androidplay.services.BaseContract
+import com.androidplay.services.view.main.MainPresenterImpl
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -17,16 +18,16 @@ import org.mockito.junit.MockitoJUnitRunner
 class MainPresenterTest {
 
     @Mock
-    private lateinit var view: MainContract.View
+    private lateinit var view: BaseContract.View
 
     @Mock
-    private lateinit var interactor: MainContract.Interactor
+    private lateinit var interactor: BaseContract.Interactor
 
     @Spy
     private var presenter: MainPresenterImpl = MainPresenterImpl(interactor)
 
     @Test
-    fun `getData_calls_onSuccessFinishedListener_on_positive_response`() {
+    fun getData_calls_onSuccessFinishedListener_on_positive_response () {
         Mockito.`when`(presenter.getData("Kolkata"))
             .thenReturn(null)
     }

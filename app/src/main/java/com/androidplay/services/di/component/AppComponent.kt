@@ -3,7 +3,7 @@ package com.androidplay.services.di.component
 import com.androidplay.services.di.module.AppModule
 import com.androidplay.services.di.module.ContextModule
 import com.androidplay.services.di.module.MainModule
-import com.androidplay.services.view.MainActivity
+import com.androidplay.services.view.main.MainActivity
 import dagger.Component
 import javax.inject.Singleton
 

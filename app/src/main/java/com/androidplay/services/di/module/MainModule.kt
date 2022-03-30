@@ -1,20 +1,24 @@
 package com.androidplay.services.di.module
 
 import android.content.Context
-import com.androidplay.services.view.main.MainInteractorImpl
 import com.androidplay.services.BaseContract
+import com.androidplay.services.dispatcher.DispatcherProvider
+import com.androidplay.services.dispatcher.DispatcherProviderImpl
 import com.androidplay.services.model.network.ConnectivityInterceptor
 import com.androidplay.services.model.network.ConnectivityInterceptorImpl
 import com.androidplay.services.model.network.WeatherApiInterface
 import com.androidplay.services.model.repository.WeatherRepository
 import com.androidplay.services.model.repository.WeatherRepositoryImpl
-import com.androidplay.services.view.main.MainPresenterImpl
 import com.androidplay.services.utils.Constants
+import com.androidplay.services.view.main.MainInteractorImpl
+import com.androidplay.services.view.main.MainPresenterImpl
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -63,8 +67,21 @@ class MainModule {
         WeatherRepositoryImpl(apiInterface)
 
     @Provides
-    fun provideInteractor(repository: WeatherRepository): BaseContract.Interactor =
-        MainInteractorImpl(repository)
+    @Singleton
+    fun provideDispatcherProvider(): DispatcherProvider =
+        DispatcherProviderImpl()
+
+    @Provides
+    @Singleton
+    fun provideCoroutineScope(dispatcher: DispatcherProvider): CoroutineScope =
+        CoroutineScope(Job() + dispatcher.io)
+
+    @Provides
+    fun provideInteractor(
+        repository: WeatherRepository,
+        scope: CoroutineScope
+    ): BaseContract.Interactor =
+        MainInteractorImpl(repository, scope)
 
     @Provides
     fun providePresenter(interactor: BaseContract.Interactor): BaseContract.Presenter =

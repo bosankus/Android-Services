@@ -32,4 +32,7 @@ class MainPresenterImpl(private val interactor: BaseContract.Interactor) : BaseC
         view.setFailureData(error)
     }
 
+    override fun cleanUp() {
+        interactor.cleanUp()
+    }
 }

@@ -36,6 +36,9 @@ interface BaseContract {
             fun onFailed(error: String)
         }
 
+        // method to clear running coroutine
+        fun cleanUp()
+
         // method to make network request to repository, and returns success or failure
         fun requestData(areaName: String, onFinishedListener: OnFinishedListener?)
     }
@@ -48,5 +51,8 @@ interface BaseContract {
 
         // method called when activity opens
         fun getData(areaName: String)
+
+        // method to clear running coroutine in interactor implementation class
+        fun cleanUp()
     }
 }

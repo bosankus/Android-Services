@@ -5,6 +5,7 @@ import com.androidplay.services.model.model.Weather
 import com.androidplay.services.model.repository.WeatherRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -41,7 +42,8 @@ class MainInteractorImpl(
     }
 
     override fun cleanUp() {
-        scope.cancel()
+        if (scope.isActive) scope.cancel()
+        else return
     }
 
 }

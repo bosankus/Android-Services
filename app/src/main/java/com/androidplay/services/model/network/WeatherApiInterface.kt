@@ -1,16 +1,7 @@
 package com.androidplay.services.model.network
 
-import android.app.Application
 import com.androidplay.services.BuildConfig
 import com.androidplay.services.model.model.Weather
-import com.androidplay.services.utils.Constants.LOCATION
-import com.androidplay.services.utils.Constants.WEATHER_URL
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -24,7 +15,7 @@ interface WeatherApiInterface {
     /*implementation method to get current temperature of hardcoded city*/
     @GET("weather")
     suspend fun getWeather(
-        @Query("q") location: String = LOCATION,
+        @Query("q") location: String,
         @Query("APPID") AppId: String = BuildConfig.WEATHER_KEY
     ): Weather?
 

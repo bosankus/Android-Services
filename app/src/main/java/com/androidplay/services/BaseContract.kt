@@ -40,7 +40,7 @@ interface BaseContract {
         fun cleanUp()
 
         // method to make network request to repository, and returns success or failure
-        fun requestData(areaName: String, onFinishedListener: OnFinishedListener?)
+        fun requestData(areaName: String, onFinishedListener: OnFinishedListener)
     }
 
 

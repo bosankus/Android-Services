@@ -10,5 +10,5 @@ import kotlin.math.roundToInt
  */
 object Extensions {
 
-    fun Double.toCelsius(): String = "${(this - KELVIN_CONSTANT).roundToInt()}°C"
+    fun Double.toCelsius(): String = "${(this - KELVIN_CONSTANT).toInt()}°C"
 }

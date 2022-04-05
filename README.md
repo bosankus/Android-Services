@@ -1,16 +1,15 @@
-[![CircleCI](https://circleci.com/gh/bosankus/Android-Services.svg?style=svg)](https://androidplay.in)  [![CodeFactor](https://www.codefactor.io/repository/github/bosankus/Android-Services/badge?style=plastic)](https://www.codefactor.io/repository/github/bosankus/android-services/stats)
+[![CircleCI](https://circleci.com/gh/bosankus/Weatherify-MVP.svg?style=svg)](https://app.circleci.com/pipelines/github/bosankus/Weatherify-MVP?branch=master)  [![CodeFactor](https://www.codefactor.io/repository/github/bosankus/weatherify-mvp/badge?style=plastic)](https://www.codefactor.io/repository/github/bosankus/weatherify-mvp/stats)
 
 # Android Services
 
-This project targets to showcase different usage of Android Service Components. Tracking progress of a task within a service with the help of broadcast receivers.
+This project targets to showcase different usage of Android Service Components.
+Track progress of network call and show in notification
 
 The app follows MVP pattern. TBH this is first time working on MVP architecture. Do check my other projects for MVVM, which I like.
 
 Few extra this app will include:
 - Network call using Retrofit
 - Usage of Coroutines for asynchronous tasks
-- Broadcast Receiver to track progress of service
-- Different kinds of Services
 - Will try to add test cases too
 
 ## Contributing

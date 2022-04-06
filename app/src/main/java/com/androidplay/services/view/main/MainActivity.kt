@@ -30,13 +30,13 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
         presenter.attach(this)
 
         // calling fetch data method
-        presenter.getData("Bengaluru")
+        presenter.getData("Kolkata")
     }
 
     override fun setSuccessData(weather: Weather) {
         lifecycleScope.launchWhenStarted {
             binding?.apply {
-                activityMainTemperature.text = weather.main?.temp?.toCelsius()
+                activityMainTemperature.text = weather.temp?.toCelsius()
                 activityMainCityName.text = weather.name
             }
         }

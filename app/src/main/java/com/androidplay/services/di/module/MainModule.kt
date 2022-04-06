@@ -79,9 +79,10 @@ class MainModule {
     @Provides
     fun provideInteractor(
         repository: WeatherRepository,
+        dispatcher: DispatcherProvider,
         scope: CoroutineScope
     ): BaseContract.Interactor =
-        MainInteractorImpl(repository, scope)
+        MainInteractorImpl(repository, dispatcher, scope)
 
     @Provides
     fun providePresenter(interactor: BaseContract.Interactor): BaseContract.Presenter =

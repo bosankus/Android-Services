@@ -46,8 +46,6 @@ class MainPresenterImplTest {
 
                 inOrder.apply {
                     verify(view, times(1)).showProgress()
-                    verify(interactor, times(1)).requestData(areaName, onFinishedListener)
-                    verify(onFinishedListener, times(1)).onSuccess(testWeather)
                     verify(view, times(1)).setSuccessData(testWeather)
                     verify(view, times(1)).hideProgress()
                 }
@@ -66,8 +64,6 @@ class MainPresenterImplTest {
 
                 inOrder.apply {
                     verify(view, times(1)).showProgress()
-                    verify(interactor, times(1)).requestData(areaName, onFinishedListener)
-                    verify(onFinishedListener, times(1)).onFailed("City not found")
                     verify(view, times(1)).setFailureData("City not found")
                     verify(view, times(1)).hideProgress()
                 }

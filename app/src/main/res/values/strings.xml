@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Weatherify MVP</string>
+    <string name="fetch">Fetch</string>
+    <string name="area_name_hint">Which area\'s temperature you want to know?</string>
+    <string name="default_text">--</string>
+    <string name="empty_area_name_text">Area name can not be empty</string>
 </resources>

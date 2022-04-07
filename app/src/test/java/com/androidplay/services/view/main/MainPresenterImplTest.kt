@@ -40,7 +40,7 @@ class MainPresenterImplTest {
         runBlocking {
             {
                 val areaName = "Kolkata"
-                val testWeather = Weather(721, 305.12, areaName)
+                val testWeather = Weather(721, Weather.Main(305.12), areaName)
                 val inOrder = inOrder(view, interactor)
                 presenter.getData(areaName)
 
@@ -74,8 +74,9 @@ class MainPresenterImplTest {
 
     @Test
     fun getData_returns_successResponse() {
-        val mockedResponse = view.setFailureData("City not found")
-        presenter.getData("k")
-        verify(view, times(1)).setFailureData("City not found")
+        runBlocking {
+            presenter.getData("k")
+            verify(view, times(1)).setFailureData("City not found")
+        }
     }
 }

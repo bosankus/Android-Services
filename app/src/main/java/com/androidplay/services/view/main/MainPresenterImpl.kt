@@ -18,6 +18,7 @@ class MainPresenterImpl(private val interactor: BaseContract.Interactor) : BaseC
     }
 
     override fun getData(areaName: String) {
+        view?.hideKeyboard()
         view?.showProgress()
         interactor.requestData(areaName, this)
     }

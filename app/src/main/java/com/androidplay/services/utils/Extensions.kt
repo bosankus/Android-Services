@@ -1,6 +1,8 @@
 package com.androidplay.services.utils
 
 import com.androidplay.services.utils.Constants.KELVIN_CONSTANT
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
 /**
@@ -10,5 +12,10 @@ import kotlin.math.roundToInt
  */
 object Extensions {
 
-    fun Double.toCelsius(): String = "${(this - KELVIN_CONSTANT).toInt()}°C"
+    fun Double.toCelsius(): String {
+        val tempInCelcius = this - KELVIN_CONSTANT
+        val df = DecimalFormat("#")
+        df.roundingMode = RoundingMode.CEILING
+        return "${df.format(tempInCelcius)}°C"
+    }
 }

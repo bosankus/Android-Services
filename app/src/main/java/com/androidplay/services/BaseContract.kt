@@ -11,6 +11,12 @@ interface BaseContract {
 
     interface View {
 
+        // method called when any view is clicked inside
+        fun setClickListener()
+
+        // method called to make network request
+        fun fetchTemperatureData(areaName: String?)
+
         // method called when weather details are fetched and needs to update UI
         fun setSuccessData(weather: Weather)
 
@@ -22,6 +28,9 @@ interface BaseContract {
 
         // method to hide progress bar when weather details is fetched or found any when fetching
         fun hideProgress()
+
+        // method to hide keyboard
+        fun hideKeyboard()
     }
 
 

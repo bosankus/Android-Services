@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.androidplay.services.WeatherifyMVPApplication
+import com.androidplay.services.application.WeatherifyMVPApplication
 import com.androidplay.services.BaseContract
 import com.androidplay.services.R
 import com.androidplay.services.databinding.ActivityMainBinding

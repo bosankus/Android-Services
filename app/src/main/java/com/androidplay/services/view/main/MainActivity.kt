@@ -14,6 +14,7 @@ import com.androidplay.services.databinding.ActivityMainBinding
 import com.androidplay.services.model.model.Weather
 import com.androidplay.services.model.persistance.DataStoreManager
 import com.androidplay.services.utils.Constants.DEFAULT_AREA
+import com.androidplay.services.utils.Extensions.hideSoftKeyboard
 import com.androidplay.services.utils.Extensions.toCelsius
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     override fun hideKeyboard() {
-        // TODO hide keyboard
+        this.hideSoftKeyboard()
     }
 
     override fun onDestroy() {

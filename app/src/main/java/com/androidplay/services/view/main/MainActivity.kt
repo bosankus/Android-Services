@@ -1,7 +1,9 @@
 package com.androidplay.services.view.main
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -10,8 +12,11 @@ import com.androidplay.services.BaseContract
 import com.androidplay.services.R
 import com.androidplay.services.databinding.ActivityMainBinding
 import com.androidplay.services.model.model.Weather
+import com.androidplay.services.model.persistance.DataStoreManager
 import com.androidplay.services.utils.Constants.DEFAULT_AREA
 import com.androidplay.services.utils.Extensions.toCelsius
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), BaseContract.View {
@@ -20,6 +25,9 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
 
     @Inject
     lateinit var presenter: BaseContract.Presenter
+
+    @Inject
+    lateinit var dataStoreManager: DataStoreManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +38,18 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
 
         presenter.attach(this)
 
-        // calling fetch data method using default location
-        fetchTemperatureData(DEFAULT_AREA)
-
         setClickListener()
     }
 
-    override fun setClickListener() {
+    override fun onStart() {
+        super.onStart()
+        lifecycleScope.launchWhenStarted {
+            dataStoreManager.getAreaName().collectLatest { areaName ->
+                areaName?.let { fetchTemperatureData(it) } ?: fetchTemperatureData(DEFAULT_AREA) }
+        }
+    }
+
+    private fun setClickListener() {
         binding?.apply {
             activityMainBtFetch.setOnClickListener {
                 val providedAreaName = activityMainEtAreaName.text.toString().trim()
@@ -55,10 +68,14 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
         else presenter.getData(areaName)
     }
 
+    override fun saveDataInDataStore(weather: Weather) {
+        lifecycleScope.launch { dataStoreManager.saveData(weather) }
+    }
+
     override fun setSuccessData(weather: Weather) {
         lifecycleScope.launchWhenStarted {
             binding?.apply {
-                activityMainTemperature.text =  weather.main.temp.toCelsius()
+                activityMainTemperature.text = weather.main.temp.toCelsius()
                 activityMainCityName.text = weather.name
             }
         }
@@ -82,7 +99,7 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     override fun hideKeyboard() {
-
+        // TODO hide keyboard
     }
 
     override fun onDestroy() {

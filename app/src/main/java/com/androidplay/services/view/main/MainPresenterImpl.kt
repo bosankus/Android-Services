@@ -26,6 +26,7 @@ class MainPresenterImpl(private val interactor: BaseContract.Interactor) : BaseC
     override fun onSuccess(weather: Weather) {
         view?.apply {
             setSuccessData(weather)
+            saveDataInDataStore(weather)
             hideProgress()
         }
     }

@@ -11,11 +11,11 @@ interface BaseContract {
 
     interface View {
 
-        // method called when any view is clicked inside
-        fun setClickListener()
-
         // method called to make network request
         fun fetchTemperatureData(areaName: String?)
+
+        // method to store fetched details in dataStore preference
+        fun saveDataInDataStore(weather: Weather)
 
         // method called when weather details are fetched and needs to update UI
         fun setSuccessData(weather: Weather)

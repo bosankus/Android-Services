@@ -28,7 +28,7 @@ class MainInteractorImpl(
                 val weather: Weather? = repository.getWeather(areaName)
                 withContext(dispatcher.main) {
                     if (weather != null && weather.name != "") onFinishedListener.onSuccess(weather)
-                    else onFinishedListener.onFailed("Urgh...Looks like our satellites are having coffee time!")
+                    else onFinishedListener.onFailed("Urgh...Looks like our satellites are having coffee break!")
                 }
             } catch (e: HttpException) {
                 withContext(dispatcher.main) {
@@ -42,6 +42,14 @@ class MainInteractorImpl(
             } catch (e: IOException) {
                 withContext(dispatcher.main) {
                     onFinishedListener.onFailed("An error occurred while connecting to server.")
+                }
+            } catch (e: Exception) {
+                withContext(dispatcher.main) {
+                    onFinishedListener.onFailed("Something went wrong!")
+                }
+            } catch (e: Throwable) {
+                withContext(dispatcher.main) {
+                    onFinishedListener.onFailed("Something went wrong!")
                 }
             }
         }

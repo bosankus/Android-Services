@@ -4,8 +4,7 @@ import android.content.Context
 import com.androidplay.services.BaseContract
 import com.androidplay.services.dispatcher.DispatcherProvider
 import com.androidplay.services.dispatcher.DispatcherProviderImpl
-import com.androidplay.services.model.network.ConnectivityInterceptor
-import com.androidplay.services.model.network.ConnectivityInterceptorImpl
+import com.androidplay.services.model.interceptors.connectivity.ConnectivityInterceptor
 import com.androidplay.services.model.network.WeatherApiInterface
 import com.androidplay.services.model.persistance.DataStoreManager
 import com.androidplay.services.model.persistance.DataStoreManagerImpl
@@ -38,7 +37,7 @@ class MainModule {
     @Provides
     @Singleton
     fun provideConnectivityInterceptor(context: Context): ConnectivityInterceptor =
-        ConnectivityInterceptorImpl(context)
+        ConnectivityInterceptor(context)
 
     @Provides
     fun provideHttpClient(connectivityInterceptor: ConnectivityInterceptor): OkHttpClient =

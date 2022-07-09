@@ -4,9 +4,10 @@ import android.content.Context
 import com.androidplay.services.BaseContract
 import com.androidplay.services.dispatcher.DispatcherProvider
 import com.androidplay.services.dispatcher.DispatcherProviderImpl
-import com.androidplay.services.model.network.ConnectivityInterceptor
-import com.androidplay.services.model.network.ConnectivityInterceptorImpl
+import com.androidplay.services.model.interceptors.connectivity.ConnectivityInterceptor
 import com.androidplay.services.model.network.WeatherApiInterface
+import com.androidplay.services.model.persistance.DataStoreManager
+import com.androidplay.services.model.persistance.DataStoreManagerImpl
 import com.androidplay.services.model.repository.WeatherRepository
 import com.androidplay.services.model.repository.WeatherRepositoryImpl
 import com.androidplay.services.utils.Constants
@@ -36,7 +37,7 @@ class MainModule {
     @Provides
     @Singleton
     fun provideConnectivityInterceptor(context: Context): ConnectivityInterceptor =
-        ConnectivityInterceptorImpl(context)
+        ConnectivityInterceptor(context)
 
     @Provides
     fun provideHttpClient(connectivityInterceptor: ConnectivityInterceptor): OkHttpClient =
@@ -79,11 +80,16 @@ class MainModule {
     @Provides
     fun provideInteractor(
         repository: WeatherRepository,
+        dispatcher: DispatcherProvider,
         scope: CoroutineScope
     ): BaseContract.Interactor =
-        MainInteractorImpl(repository, scope)
+        MainInteractorImpl(repository, dispatcher, scope)
 
     @Provides
     fun providePresenter(interactor: BaseContract.Interactor): BaseContract.Presenter =
         MainPresenterImpl(interactor)
+
+    @Provides
+    @Singleton
+    fun provideDataStore(context: Context): DataStoreManager = DataStoreManagerImpl(context)
 }

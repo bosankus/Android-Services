@@ -11,6 +11,12 @@ interface BaseContract {
 
     interface View {
 
+        // method called to make network request
+        fun fetchTemperatureData(areaName: String?)
+
+        // method to store fetched details in dataStore preference
+        fun saveDataInDataStore(weather: Weather)
+
         // method called when weather details are fetched and needs to update UI
         fun setSuccessData(weather: Weather)
 
@@ -22,6 +28,9 @@ interface BaseContract {
 
         // method to hide progress bar when weather details is fetched or found any when fetching
         fun hideProgress()
+
+        // method to hide keyboard
+        fun hideKeyboard()
     }
 
 
@@ -40,7 +49,7 @@ interface BaseContract {
         fun cleanUp()
 
         // method to make network request to repository, and returns success or failure
-        fun requestData(areaName: String, onFinishedListener: OnFinishedListener?)
+        fun requestData(areaName: String, onFinishedListener: OnFinishedListener)
     }
 
 

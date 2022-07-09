@@ -2,8 +2,6 @@ package com.androidplay.services.model.repository
 
 import com.androidplay.services.model.model.Weather
 import com.androidplay.services.model.network.WeatherApiInterface
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 /**
  * Author: Ankush Bose
@@ -12,8 +10,9 @@ import kotlinx.coroutines.withContext
  */
 class WeatherRepositoryImpl(private val api: WeatherApiInterface) : WeatherRepository {
 
-    override suspend fun getWeather(areaName: String): Weather? {
-        return withContext(Dispatchers.IO) { api.getWeather(location = areaName) }
+    override suspend fun getWeather(areaName: String): Weather? =
+        api.getWeather(location = areaName)
+
     }
 
     /*companion object {
@@ -28,4 +27,3 @@ class WeatherRepositoryImpl(private val api: WeatherApiInterface) : WeatherRepos
             return localInstance
         }
     }*/
-}

@@ -18,18 +18,24 @@ class MainPresenterImpl(private val interactor: BaseContract.Interactor) : BaseC
     }
 
     override fun getData(areaName: String) {
+        view?.hideKeyboard()
         view?.showProgress()
         interactor.requestData(areaName, this)
     }
 
     override fun onSuccess(weather: Weather) {
-        view?.hideProgress()
-        view?.setSuccessData(weather)
+        view?.apply {
+            setSuccessData(weather)
+            saveDataInDataStore(weather)
+            hideProgress()
+        }
     }
 
     override fun onFailed(error: String) {
-        view?.hideProgress()
-        view?.setFailureData(error)
+        view?.apply {
+            setFailureData(error)
+            hideProgress()
+        }
     }
 
     override fun cleanUp() {

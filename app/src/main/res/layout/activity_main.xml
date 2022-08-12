@@ -47,11 +47,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:background="@android:color/transparent"
             android:gravity="center"
             android:hint="@string/area_name_hint"
             android:importantForAutofill="no"
+            android:inputType="text"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="@dimen/text_18" />
 
         <Button

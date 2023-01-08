@@ -1,19 +1,9 @@
 package com.androidplay.services.view.main
 
-import android.content.res.Resources
 import com.androidplay.services.BaseContract
-import com.androidplay.services.R
 import com.androidplay.services.dispatcher.DispatcherProvider
-import com.androidplay.services.dispatcher.DispatcherProviderImpl
-import com.androidplay.services.model.model.Weather
-import com.androidplay.services.model.network.WeatherApiInterface
 import com.androidplay.services.model.repository.WeatherRepository
-import com.androidplay.services.model.repository.WeatherRepositoryImpl
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.stub
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -27,20 +17,25 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class MainInteractorImplTest {
 
-    private val listener: BaseContract.Interactor.OnFinishedListener = mock()
+    @Mock
+    private lateinit var listener: BaseContract.Interactor.OnFinishedListener
 
-    private val dispatcher: DispatcherProvider = mock()
+    @Mock
+    private lateinit var dispatcher: DispatcherProvider
 
-    private val scope: CoroutineScope = mock()
+    @Mock
+    private lateinit var scope: CoroutineScope
 
-    private val repository: WeatherRepository = mock()
+    @Mock
+    private lateinit var repository: WeatherRepository
 
     @Spy
-    private val interactor: BaseContract.Interactor = MainInteractorImpl(repository, dispatcher, scope)
+    private lateinit var interactor: BaseContract.Interactor
 
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
+        interactor = MainInteractorImpl(repository, dispatcher, scope)
     }
 
 

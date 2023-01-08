@@ -21,7 +21,7 @@ class WeatherifyMVPApplication : Application() {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
-
+ 
     private fun initDagger(app: WeatherifyMVPApplication): AppComponent =
         DaggerAppComponent.builder()
             .contextModule(ContextModule(app))

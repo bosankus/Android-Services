@@ -2,15 +2,11 @@
 
 # Android Services
 
-This project targets to showcase different usage of Android Service Components.
-Track progress of network call and show in notification
-
-The app follows MVP pattern. TBH this is first time working on MVP architecture. Do check my other projects for MVVM, which I like.
+The app follows MVP pattern. Do check my other projects for MVVM & clean architecture.
 
 Few extra this app will include:
 - Network call using Retrofit
 - Usage of Coroutines for asynchronous tasks
-- Will try to add test cases too
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

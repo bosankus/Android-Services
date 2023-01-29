@@ -26,7 +26,16 @@ jobs:
       - checkout
 
       # Set Fabric Api Key with environment variables
-      - run: echo "WEATHER_KEY=$WEATHER_API_KEY" >> ~/home/circleci/project/local.properties
+      - run: echo "WEATHER_KEY=$WEATHER_API_KEY" >> ~/repo/local.properties
+
+      # Download and cache dependencies
+       - restore_cache:
+           keys:
+             - v1-dependencies-{{ checksum "build.gradle" }}
+             # fallback to using the latest cache if no exact match is found
+             - v1-dependencies-
+
+       - run: ./gradlew androidDependencies
 
       # The next step will run the unit tests
       - android/run-tests:

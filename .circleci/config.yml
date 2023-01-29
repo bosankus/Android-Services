@@ -23,7 +23,9 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       # Checkout the code as the first step.
-      - checkout
+      - checkout:
+          post:
+            - cp local.properties.ci local.properties
 
       # The next step will run the unit tests
       - android/run-tests:
@@ -39,10 +41,6 @@ jobs:
           name: Assemble release build
           command: |
             ./gradlew assembleRelease
-
-      - checkout:
-          post:
-            - cp local.properties.ci local.properties
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

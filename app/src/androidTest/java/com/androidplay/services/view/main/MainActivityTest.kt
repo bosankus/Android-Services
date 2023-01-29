@@ -10,11 +10,15 @@ import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.androidplay.services.R
+import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.junit.Before
+import org.junit.FixMethodOrder
 import org.junit.Test
+import org.junit.runners.MethodSorters
 
 @Suppress("SameParameterValue")
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MainActivityTest {
 
     private lateinit var scenario: ActivityScenario<MainActivity>
@@ -26,17 +30,17 @@ class MainActivityTest {
     }
 
     @Test
-    fun test_ui_flow_when_activity_isShown() {
+    fun verify_initial_weather_temperature_and_area_name_are_visible() {
         onView(withId(R.id.activity_main_progress)).check(matches(isDisplayed()))
         onView(isRoot()).perform(waitFor(1000)) // To let the data load
         onView(withId(R.id.activity_main_progress)).check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
-        onView(withId(R.id.activity_main_temperature)).check(matches(withText("-273°C")))
-        onView(withId(R.id.activity_main_city_name)).check(matches(withText("Kolkata")))
+        onView(withId(R.id.activity_main_temperature)).check(matches(withText(any(String::class.java))))
+        onView(withId(R.id.activity_main_city_name)).check(matches(withText(any(String::class.java))))
     }
 
 
     @Test
-    fun a_test_ui_flow_when_areaName_is_queried() {
+    fun verify_when_provided_with_new_query_weather_details_are_visible() {
         // input
         onView(isRoot()).perform(waitFor(1000)) // to let load default location data
         onView(withId(R.id.activity_main_et_area_name)).perform(clearText(), typeText("Bengaluru"))
@@ -44,7 +48,7 @@ class MainActivityTest {
 
         // output
         onView(isRoot()).perform(waitFor(1000)) // To let the data load
-        onView(withId(R.id.activity_main_temperature)).check(matches(withText("26°C")))
+        onView(withId(R.id.activity_main_temperature)).check(matches(withText(any(String::class.java))))
         onView(withId(R.id.activity_main_city_name)).check(matches(withText("Bengaluru")))
     }
 

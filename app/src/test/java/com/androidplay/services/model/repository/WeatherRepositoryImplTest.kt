@@ -1,7 +1,7 @@
 package com.androidplay.services.model.repository
 
 import com.androidplay.services.model.model.Weather
-import com.androidplay.services.model.network.WeatherApiInterface
+import com.androidplay.services.model.network.WeatherApiService
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -18,18 +18,19 @@ import org.mockito.junit.MockitoJUnitRunner
 class WeatherRepositoryImplTest {
 
     @Mock
-    private lateinit var api: WeatherApiInterface
+    private lateinit var api: WeatherApiService
 
     @Spy
-    private val repository: WeatherRepository = WeatherRepositoryImpl(api)
+    private lateinit var repository: WeatherRepository
 
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
+        repository = WeatherRepositoryImpl(api)
     }
 
     @Test
-    fun getWeather_calls_apiSuccessfully() {
+    fun `verify that getWeather hits main API exactly 1 time successfully`() {
         runBlocking {
             val areaName = "Kolkata"
             repository.getWeather(areaName)
@@ -38,7 +39,7 @@ class WeatherRepositoryImplTest {
     }
 
     @Test
-    fun getWeather_onWrongLocationArgument_returnsNullWeatherId() {
+    fun `assert that passing wrong city name returns null weather id`() {
         runBlocking {
             val areaName = "Ko"
             val result: Weather? = repository.getWeather(areaName)

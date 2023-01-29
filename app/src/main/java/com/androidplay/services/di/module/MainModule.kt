@@ -5,7 +5,7 @@ import com.androidplay.services.BaseContract
 import com.androidplay.services.dispatcher.DispatcherProvider
 import com.androidplay.services.dispatcher.DispatcherProviderImpl
 import com.androidplay.services.model.interceptors.connectivity.ConnectivityInterceptor
-import com.androidplay.services.model.network.WeatherApiInterface
+import com.androidplay.services.model.network.WeatherApiService
 import com.androidplay.services.model.persistance.DataStoreManager
 import com.androidplay.services.model.persistance.DataStoreManagerImpl
 import com.androidplay.services.model.repository.WeatherRepository
@@ -39,6 +39,7 @@ class MainModule {
     fun provideConnectivityInterceptor(context: Context): ConnectivityInterceptor =
         ConnectivityInterceptor(context)
 
+    @Singleton
     @Provides
     fun provideHttpClient(connectivityInterceptor: ConnectivityInterceptor): OkHttpClient =
         OkHttpClient.Builder()
@@ -48,32 +49,33 @@ class MainModule {
             .readTimeout(60, TimeUnit.SECONDS)
             .build()
 
+    @Singleton
     @Provides
     fun provideMoshi(): Moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
 
+    @Singleton
     @Provides
-    fun provideWeatherApiInterface(moshi: Moshi, client: OkHttpClient): WeatherApiInterface =
+    fun provideWeatherApiInterface(moshi: Moshi, client: OkHttpClient): WeatherApiService =
         Retrofit.Builder()
             .baseUrl(Constants.WEATHER_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(client)
             .build()
-            .create(WeatherApiInterface::class.java)
+            .create(WeatherApiService::class.java)
 
+    @Singleton
     @Provides
-    fun provideRepository(apiInterface: WeatherApiInterface): WeatherRepository =
+    fun provideRepository(apiInterface: WeatherApiService): WeatherRepository =
         WeatherRepositoryImpl(apiInterface)
 
     @Provides
-    @Singleton
     fun provideDispatcherProvider(): DispatcherProvider =
         DispatcherProviderImpl()
 
     @Provides
-    @Singleton
     fun provideCoroutineScope(dispatcher: DispatcherProvider): CoroutineScope =
         CoroutineScope(Job() + dispatcher.io)
 
@@ -89,7 +91,7 @@ class MainModule {
     fun providePresenter(interactor: BaseContract.Interactor): BaseContract.Presenter =
         MainPresenterImpl(interactor)
 
-    @Provides
     @Singleton
+    @Provides
     fun provideDataStore(context: Context): DataStoreManager = DataStoreManagerImpl(context)
 }

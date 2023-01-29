@@ -10,10 +10,10 @@ import retrofit2.http.Query
  * Company: Androidplay.in
  * Created on: 11,March,2022
  */
-interface WeatherApiInterface {
+interface WeatherApiService {
 
     /*implementation method to get current temperature of hardcoded city*/
-    @GET("weather")
+    @GET("data/2.5/weather")
     suspend fun getWeather(
         @Query("q") location: String,
         @Query("APPID") AppId: String = BuildConfig.WEATHER_KEY

@@ -52,6 +52,19 @@ class MainActivityTest {
         onView(withId(R.id.activity_main_city_name)).check(matches(withText("Bengaluru")))
     }
 
+    @Test
+    fun verify_when_provided_with_wrong_query_weather_details_are_not_visible() {
+        // input
+        onView(isRoot()).perform(waitFor(1000)) // to let load default location data
+        onView(withId(R.id.activity_main_et_area_name)).perform(clearText(), typeText("Be"))
+        onView(withId(R.id.activity_main_bt_fetch)).perform(click())
+
+        // output
+        onView(isRoot()).perform(waitFor(1000)) // To let the data load
+        onView(withId(R.id.activity_main_temperature)).check(matches(withText("--")))
+        onView(withId(R.id.activity_main_city_name)).check(matches(withText("City not found")))
+    }
+
     private fun waitFor(delay: Long): ViewAction {
         return object : ViewAction {
             override fun getConstraints(): Matcher<View> = isRoot()

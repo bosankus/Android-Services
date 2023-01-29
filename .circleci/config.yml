@@ -29,7 +29,7 @@ jobs:
       - run: echo "WEATHER_KEY=$WEATHER_API_KEY" >> ~/repo/local.properties
 
       # Download and cache dependencies
-       - restore_cache:
+      - restore_cache:
          keys:
            - v1-dependencies-{{ checksum "build.gradle" }}
            # fallback to using the latest cache if no exact match is found

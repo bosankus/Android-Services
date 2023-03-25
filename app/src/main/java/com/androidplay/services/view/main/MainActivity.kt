@@ -1,15 +1,13 @@
 package com.androidplay.services.view.main
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.androidplay.services.application.WeatherifyMVPApplication
 import com.androidplay.services.BaseContract
 import com.androidplay.services.R
+import com.androidplay.services.application.WeatherifyMVPApplication
 import com.androidplay.services.databinding.ActivityMainBinding
 import com.androidplay.services.model.model.Weather
 import com.androidplay.services.model.persistance.DataStoreManager

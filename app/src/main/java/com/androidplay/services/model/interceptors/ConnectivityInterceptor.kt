@@ -1,4 +1,4 @@
-package com.androidplay.services.model.interceptors.connectivity
+package com.androidplay.services.model.interceptors
 
 import android.content.Context
 import com.androidplay.services.utils.NetworkInfo.isOnline

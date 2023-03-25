@@ -13,7 +13,7 @@ import java.io.IOException
  * Company: Androidplay.in
  * Created on: 12,March,2022
  */
-class MainInteractorImpl(
+class MainInteractor(
     private val repository: WeatherRepository,
     private val dispatcher: DispatcherProvider,
     private val scope: CoroutineScope,
@@ -31,26 +31,18 @@ class MainInteractorImpl(
                     else onFinishedListener.onFailed("Urgh...Looks like our satellites are having coffee break!")
                 }
             } catch (e: HttpException) {
-                withContext(dispatcher.main) {
-                    when (e.code()) {
-                        401 -> onFinishedListener.onFailed("Unauthorised access!")
-                        400, 404 -> onFinishedListener.onFailed("City not found")
-                        500 -> onFinishedListener.onFailed("Umm... Looks like server issue.")
-                        else -> onFinishedListener.onFailed("Something went wrong!")
-                    }
+                when (e.code()) {
+                    401 -> onFinishedListener.onFailed("Unauthorised access!")
+                    400, 404 -> onFinishedListener.onFailed("City not found")
+                    500 -> onFinishedListener.onFailed("Umm... Looks like server issue.")
+                    else -> onFinishedListener.onFailed("Something went wrong!")
                 }
             } catch (e: IOException) {
-                withContext(dispatcher.main) {
-                    onFinishedListener.onFailed("An error occurred while connecting to server.")
-                }
+                onFinishedListener.onFailed("An error occurred while connecting to server.")
             } catch (e: Exception) {
-                withContext(dispatcher.main) {
-                    onFinishedListener.onFailed("Something went wrong!")
-                }
+                onFinishedListener.onFailed("Something went wrong!")
             } catch (e: Throwable) {
-                withContext(dispatcher.main) {
-                    onFinishedListener.onFailed("Something went wrong!")
-                }
+                onFinishedListener.onFailed("Something went wrong!")
             }
         }
     }

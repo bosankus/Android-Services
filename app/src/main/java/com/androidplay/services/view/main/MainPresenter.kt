@@ -8,7 +8,7 @@ import com.androidplay.services.model.model.Weather
  * Company: Androidplay.in
  * Created on: 12,March,2022
  */
-class MainPresenterImpl(private val interactor: BaseContract.Interactor) : BaseContract.Presenter,
+class MainPresenter(private val interactor: BaseContract.Interactor) : BaseContract.Presenter,
     BaseContract.Interactor.OnFinishedListener {
 
     private var view: BaseContract.View? = null
@@ -18,8 +18,10 @@ class MainPresenterImpl(private val interactor: BaseContract.Interactor) : BaseC
     }
 
     override fun getData(areaName: String) {
-        view?.hideKeyboard()
-        view?.showProgress()
+        view?.apply {
+            hideKeyboard()
+            showProgress()
+        }
         interactor.requestData(areaName, this)
     }
 

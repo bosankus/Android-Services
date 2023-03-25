@@ -4,15 +4,15 @@ import android.content.Context
 import com.androidplay.services.BaseContract
 import com.androidplay.services.dispatcher.DispatcherProvider
 import com.androidplay.services.dispatcher.DispatcherProviderImpl
-import com.androidplay.services.model.interceptors.connectivity.ConnectivityInterceptor
+import com.androidplay.services.model.interceptors.ConnectivityInterceptor
 import com.androidplay.services.model.network.WeatherApiService
 import com.androidplay.services.model.persistance.DataStoreManager
 import com.androidplay.services.model.persistance.DataStoreManagerImpl
 import com.androidplay.services.model.repository.WeatherRepository
 import com.androidplay.services.model.repository.WeatherRepositoryImpl
 import com.androidplay.services.utils.Constants
-import com.androidplay.services.view.main.MainInteractorImpl
-import com.androidplay.services.view.main.MainPresenterImpl
+import com.androidplay.services.view.main.MainInteractor
+import com.androidplay.services.view.main.MainPresenter
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -85,11 +85,11 @@ class MainModule {
         dispatcher: DispatcherProvider,
         scope: CoroutineScope
     ): BaseContract.Interactor =
-        MainInteractorImpl(repository, dispatcher, scope)
+        MainInteractor(repository, dispatcher, scope)
 
     @Provides
     fun providePresenter(interactor: BaseContract.Interactor): BaseContract.Presenter =
-        MainPresenterImpl(interactor)
+        MainPresenter(interactor)
 
     @Singleton
     @Provides

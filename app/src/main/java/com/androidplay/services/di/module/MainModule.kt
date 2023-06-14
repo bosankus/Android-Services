@@ -1,18 +1,9 @@
 package com.androidplay.services.di.module
 
-import android.content.Context
-import com.androidplay.services.BaseContract
 import com.androidplay.services.dispatcher.DispatcherProvider
-import com.androidplay.services.dispatcher.DispatcherProviderImpl
 import com.androidplay.services.model.interceptors.ConnectivityInterceptor
 import com.androidplay.services.model.network.WeatherApiService
-import com.androidplay.services.model.persistance.DataStoreManager
-import com.androidplay.services.model.persistance.DataStoreManagerImpl
-import com.androidplay.services.model.repository.WeatherRepository
-import com.androidplay.services.model.repository.WeatherRepositoryImpl
 import com.androidplay.services.utils.Constants
-import com.androidplay.services.view.main.MainInteractor
-import com.androidplay.services.view.main.MainPresenter
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -33,11 +24,6 @@ import javax.inject.Singleton
  */
 @Module
 class MainModule {
-
-    @Provides
-    @Singleton
-    fun provideConnectivityInterceptor(context: Context): ConnectivityInterceptor =
-        ConnectivityInterceptor(context)
 
     @Singleton
     @Provides
@@ -66,32 +52,7 @@ class MainModule {
             .build()
             .create(WeatherApiService::class.java)
 
-    @Singleton
-    @Provides
-    fun provideRepository(apiInterface: WeatherApiService): WeatherRepository =
-        WeatherRepositoryImpl(apiInterface)
-
-    @Provides
-    fun provideDispatcherProvider(): DispatcherProvider =
-        DispatcherProviderImpl()
-
     @Provides
     fun provideCoroutineScope(dispatcher: DispatcherProvider): CoroutineScope =
         CoroutineScope(Job() + dispatcher.io)
-
-    @Provides
-    fun provideInteractor(
-        repository: WeatherRepository,
-        dispatcher: DispatcherProvider,
-        scope: CoroutineScope
-    ): BaseContract.Interactor =
-        MainInteractor(repository, dispatcher, scope)
-
-    @Provides
-    fun providePresenter(interactor: BaseContract.Interactor): BaseContract.Presenter =
-        MainPresenter(interactor)
-
-    @Singleton
-    @Provides
-    fun provideDataStore(context: Context): DataStoreManager = DataStoreManagerImpl(context)
 }

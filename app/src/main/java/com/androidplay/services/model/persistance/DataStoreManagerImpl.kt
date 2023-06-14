@@ -11,6 +11,8 @@ import com.androidplay.services.utils.Constants.DATASTORE_PREF_NAME
 import com.androidplay.services.utils.Extensions.toCelsius
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private val TEMP_PREF_KEY = stringPreferencesKey("TEMP_PREF")
 private val AREA_PREF_KEY = stringPreferencesKey("AREA_KEY")
@@ -18,7 +20,8 @@ private val Context.weatherPreferenceDataStore: DataStore<Preferences> by prefer
     name = DATASTORE_PREF_NAME
 )
 
-class DataStoreManagerImpl(context: Context): DataStoreManager {
+@Singleton
+class DataStoreManagerImpl @Inject constructor(context: Context) : DataStoreManager {
 
     private val weatherPreferenceDataStore = context.weatherPreferenceDataStore
 

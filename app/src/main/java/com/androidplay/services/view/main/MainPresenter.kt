@@ -2,13 +2,16 @@ package com.androidplay.services.view.main
 
 import com.androidplay.services.BaseContract
 import com.androidplay.services.model.model.Weather
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Author: Ankush Bose
  * Company: Androidplay.in
  * Created on: 12,March,2022
  */
-class MainPresenter(private val interactor: BaseContract.Interactor) : BaseContract.Presenter,
+@Singleton
+class MainPresenter @Inject constructor(private val interactor: BaseContract.Interactor) : BaseContract.Presenter,
     BaseContract.Interactor.OnFinishedListener {
 
     private var view: BaseContract.View? = null

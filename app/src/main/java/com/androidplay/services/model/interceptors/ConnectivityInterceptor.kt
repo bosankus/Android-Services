@@ -5,6 +5,7 @@ import com.androidplay.services.utils.NetworkInfo.isOnline
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
+import javax.inject.Inject
 
 /**
  * Author: Ankush Bose
@@ -12,7 +13,7 @@ import java.io.IOException
  * Created on: 11,March,2022
  */
 
-class ConnectivityInterceptor(context: Context) : Interceptor {
+class ConnectivityInterceptor @Inject constructor(context: Context) : Interceptor {
 
     private val appContext = context.applicationContext
 

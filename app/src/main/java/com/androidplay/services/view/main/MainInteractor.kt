@@ -7,13 +7,14 @@ import com.androidplay.services.model.repository.WeatherRepository
 import kotlinx.coroutines.*
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 /**
  * Author: Ankush Bose
  * Company: Androidplay.in
  * Created on: 12,March,2022
  */
-class MainInteractor(
+class MainInteractor @Inject constructor(
     private val repository: WeatherRepository,
     private val dispatcher: DispatcherProvider,
     private val scope: CoroutineScope,

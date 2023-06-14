@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
         super.onStart()
         lifecycleScope.launchWhenStarted {
             dataStoreManager.getAreaName().collectLatest { areaName ->
-                areaName?.let { fetchTemperatureData(it) } ?: fetchTemperatureData(DEFAULT_AREA) }
+                areaName?.let { fetchTemperatureData(it) } ?: fetchTemperatureData(DEFAULT_AREA)
+            }
         }
     }
 
@@ -72,18 +73,24 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     override fun setSuccessData(weather: Weather) {
-        lifecycleScope.launchWhenStarted {
-            binding?.apply {
-                activityMainTemperature.text = weather.main.temp.toCelsius()
-                activityMainCityName.text = weather.name
+        binding?.apply {
+            lifecycleScope.launch {
+                lifecycleScope.launchWhenStarted {
+                    activityMainTemperature.text = weather.main.temp.toCelsius()
+                    activityMainCityName.text = weather.name
+                }
             }
         }
     }
 
     override fun setFailureData(error: String) {
         binding?.apply {
-            activityMainTemperature.text = resources.getString(R.string.default_text)
-            activityMainCityName.text = error
+            lifecycleScope.launch {
+                lifecycleScope.launchWhenStarted {
+                    activityMainTemperature.text = resources.getString(R.string.default_text)
+                    activityMainCityName.text = error
+                }
+            }
         }
     }
 

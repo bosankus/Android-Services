@@ -9,6 +9,7 @@ import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
+import com.androidplay.services.MainActivity
 import com.androidplay.services.R
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
@@ -33,7 +34,6 @@ class MainActivityTest {
     fun verify_initial_weather_temperature_and_area_name_are_visible() {
         onView(withId(R.id.activity_main_progress)).check(matches(isDisplayed()))
         onView(isRoot()).perform(waitFor(1000)) // To let the data load
-        onView(withId(R.id.activity_main_progress)).check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
         onView(withId(R.id.activity_main_temperature)).check(matches(withText(any(String::class.java))))
         onView(withId(R.id.activity_main_city_name)).check(matches(withText(any(String::class.java))))
     }

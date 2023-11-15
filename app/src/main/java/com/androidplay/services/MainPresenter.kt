@@ -1,6 +1,5 @@
-package com.androidplay.services.view.main
+package com.androidplay.services
 
-import com.androidplay.services.BaseContract
 import com.androidplay.services.model.model.Weather
 import javax.inject.Inject
 import javax.inject.Singleton

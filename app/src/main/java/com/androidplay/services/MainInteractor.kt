@@ -1,10 +1,13 @@
-package com.androidplay.services.view.main
+package com.androidplay.services
 
-import com.androidplay.services.BaseContract
 import com.androidplay.services.dispatcher.DispatcherProvider
 import com.androidplay.services.model.model.Weather
 import com.androidplay.services.model.repository.WeatherRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject

@@ -1,26 +1,29 @@
-package com.androidplay.services.view.main
+package com.androidplay.services
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.androidplay.services.BaseContract
-import com.androidplay.services.R
-import com.androidplay.services.application.WeatherifyMVPApplication
+import androidx.lifecycle.repeatOnLifecycle
 import com.androidplay.services.databinding.ActivityMainBinding
 import com.androidplay.services.model.model.Weather
 import com.androidplay.services.model.persistance.DataStoreManager
 import com.androidplay.services.utils.Constants.DEFAULT_AREA
 import com.androidplay.services.utils.Extensions.hideSoftKeyboard
+import com.androidplay.services.utils.Extensions.parcelable
 import com.androidplay.services.utils.Extensions.toCelsius
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), BaseContract.View {
 
     private var binding: ActivityMainBinding? = null
+    private val weatherDataKey = "weather_data"
+    private var weatherData: Weather = Weather(0, Weather.Main())
 
     @Inject
     lateinit var presenter: BaseContract.Presenter
@@ -37,15 +40,35 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
 
         presenter.attach(this)
 
+        collectInitialData(savedInstanceState)
+
         setClickListener()
     }
 
-    override fun onStart() {
-        super.onStart()
-        lifecycleScope.launchWhenStarted {
-            dataStoreManager.getAreaName().collectLatest { areaName ->
-                areaName?.let { fetchTemperatureData(it) } ?: fetchTemperatureData(DEFAULT_AREA)
-            }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(weatherDataKey, weatherData)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.parcelable<Weather>(weatherDataKey)?.let { setSuccessData(it) }
+    }
+
+    private fun collectInitialData(bundle: Bundle?) {
+        if (bundle != null) {
+            bundle.parcelable<Weather>(weatherDataKey)?.let { setSuccessData(it) }
+            return
+        }
+        lifecycleScope.launch {
+            dataStoreManager.getAreaName()
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .catch { e ->
+                    setFailureData("${e.message}")
+                }
+                .collect { areaName ->
+                    areaName?.let { fetchTemperatureData(it) } ?: fetchTemperatureData(DEFAULT_AREA)
+                }
         }
     }
 
@@ -73,9 +96,10 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     override fun setSuccessData(weather: Weather) {
+        weatherData = weather
         binding?.apply {
             lifecycleScope.launch {
-                lifecycleScope.launchWhenStarted {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
                     activityMainTemperature.text = weather.main.temp.toCelsius()
                     activityMainCityName.text = weather.name
                 }
@@ -86,7 +110,7 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     override fun setFailureData(error: String) {
         binding?.apply {
             lifecycleScope.launch {
-                lifecycleScope.launchWhenStarted {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
                     activityMainTemperature.text = resources.getString(R.string.default_text)
                     activityMainCityName.text = error
                 }
@@ -99,9 +123,7 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     override fun hideProgress() {
-        lifecycleScope.launchWhenStarted {
-            binding?.activityMainProgress?.visibility = View.INVISIBLE
-        }
+        binding?.activityMainProgress?.visibility = View.INVISIBLE
     }
 
     override fun hideKeyboard() {

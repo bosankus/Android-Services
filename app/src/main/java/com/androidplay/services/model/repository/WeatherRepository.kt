@@ -1,7 +1,6 @@
 package com.androidplay.services.model.repository
 
 import com.androidplay.services.model.model.Weather
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Author: Ankush Bose

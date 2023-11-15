@@ -2,13 +2,16 @@ package com.androidplay.services.view.main
 
 import com.androidplay.services.BaseContract
 import com.androidplay.services.model.model.Weather
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Author: Ankush Bose
  * Company: Androidplay.in
  * Created on: 12,March,2022
  */
-class MainPresenterImpl(private val interactor: BaseContract.Interactor) : BaseContract.Presenter,
+@Singleton
+class MainPresenter @Inject constructor(private val interactor: BaseContract.Interactor) : BaseContract.Presenter,
     BaseContract.Interactor.OnFinishedListener {
 
     private var view: BaseContract.View? = null
@@ -18,18 +21,26 @@ class MainPresenterImpl(private val interactor: BaseContract.Interactor) : BaseC
     }
 
     override fun getData(areaName: String) {
-        view?.showProgress()
+        view?.apply {
+            hideKeyboard()
+            showProgress()
+        }
         interactor.requestData(areaName, this)
     }
 
     override fun onSuccess(weather: Weather) {
-        view?.hideProgress()
-        view?.setSuccessData(weather)
+        view?.apply {
+            setSuccessData(weather)
+            saveDataInDataStore(weather)
+            hideProgress()
+        }
     }
 
     override fun onFailed(error: String) {
-        view?.hideProgress()
-        view?.setFailureData(error)
+        view?.apply {
+            setFailureData(error)
+            hideProgress()
+        }
     }
 
     override fun cleanUp() {

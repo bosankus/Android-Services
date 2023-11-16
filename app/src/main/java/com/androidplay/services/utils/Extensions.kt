@@ -1,6 +1,9 @@
 package com.androidplay.services.utils
 
 import android.app.Activity
+import android.os.Build.VERSION.SDK_INT
+import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.androidplay.services.utils.Constants.KELVIN_CONSTANT
@@ -27,5 +30,10 @@ object Extensions {
         var view: View? = this.currentFocus
         if (view == null) view = View(this)
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
+        SDK_INT >= 33 -> getParcelable(key, T::class.java)
+        else -> @Suppress("DEPRECATION") getParcelable(key) as? T
     }
 }

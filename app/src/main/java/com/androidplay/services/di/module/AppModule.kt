@@ -1,7 +1,7 @@
 package com.androidplay.services.di.module
 
 import android.content.Context
-import com.androidplay.services.application.WeatherifyMVPApplication
+import com.androidplay.services.WeatherifyMVPApplication
 import com.androidplay.services.di.scope.PerApplication
 import dagger.Module
 import dagger.Provides

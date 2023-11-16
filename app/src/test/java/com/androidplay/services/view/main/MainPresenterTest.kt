@@ -1,6 +1,7 @@
 package com.androidplay.services.view.main
 
 import com.androidplay.services.BaseContract
+import com.androidplay.services.MainPresenter
 import org.junit.After
 import org.junit.Before
 import org.mockito.Mock

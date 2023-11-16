@@ -1,4 +1,4 @@
-package com.androidplay.services.application
+package com.androidplay.services
 
 import android.app.Application
 import android.content.Context

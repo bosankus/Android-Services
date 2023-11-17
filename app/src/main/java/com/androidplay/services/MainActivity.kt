@@ -119,11 +119,19 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     override fun showProgress() {
-        binding?.activityMainProgress?.visibility = View.VISIBLE
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                binding?.activityMainProgress?.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun hideProgress() {
-        binding?.activityMainProgress?.visibility = View.INVISIBLE
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                binding?.activityMainProgress?.visibility = View.INVISIBLE
+            }
+        }
     }
 
     override fun hideKeyboard() {

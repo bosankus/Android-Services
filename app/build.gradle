@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
     id 'kotlin-parcelize'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'org.jetbrains.kotlin.android'
@@ -20,7 +20,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
-        dataBinding true
+        viewBinding true
     }
     buildTypes {
         release {
@@ -46,6 +46,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.multidex:multidex:2.0.1'
 
+    // Lifecycle
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+
     // DataStore
     implementation 'androidx.datastore:datastore-preferences:1.0.0'
 
@@ -66,9 +69,8 @@ dependencies {
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
     // Dagger
-    implementation 'com.google.dagger:dagger:2.47'
-    kapt 'com.google.dagger:dagger-compiler:2.47'
-    kapt 'com.google.dagger:dagger-android-processor:2.47'
+    implementation 'com.google.dagger:dagger:2.48.1'
+    ksp 'com.google.dagger:dagger-compiler:2.48.1'
 
     // Unit test
     testImplementation 'junit:junit:'

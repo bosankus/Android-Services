@@ -74,3 +74,4 @@ workflows:
   Running test cases:
     jobs:
       - build-and-test
+      - codecov/upload

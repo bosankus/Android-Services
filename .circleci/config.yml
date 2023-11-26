@@ -7,7 +7,7 @@ version: 2.1
 # Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
 # See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
-  android: circleci/android@1.0.3
+  android: circleci/android@2.3.0
   codecov: codecov/codecov@3.3.0
 
 # Define a job to be invoked later in a workflow.
@@ -28,7 +28,9 @@ jobs:
       - checkout
 
       # Set Fabric Api Key with environment variables
-      - run: echo "WEATHER_KEY=$WEATHER_API_KEY" >> ~/repo/local.properties
+      - run:
+          name: Resolve environment variables 
+          command: echo "WEATHER_KEY=$WEATHER_API_KEY" >> ~/repo/local.properties
 
       # Download and cache dependencies
       - restore_cache:
@@ -38,14 +40,8 @@ jobs:
             - v1-dependencies-
 
       - run:
-          name: Install OpenJDK 17
-          command: |
-            sudo apt-get update && sudo apt-get install openjdk-17-jdk
-            sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
-            sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
-            java -version
-
-      - run: ./gradlew androidDependencies
+          name: Resolve dependencies 
+          command: ./gradlew androidDependencies
 
       # The next step will run the unit tests
       - android/run-tests:

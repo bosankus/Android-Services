@@ -20,7 +20,9 @@ jobs:
     # See: https://circleci.com/docs/2.0/executor-types/
     executor:
       name: android/android-machine
-
+      resource-class: large
+      tag: 2021.10.1
+      
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -38,6 +40,14 @@ jobs:
             - v1-dependencies-{{ checksum "build.gradle" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+
+      - run:
+          name: Install Java 17
+          command: |
+            sudo apt-get update && sudo apt-get install openjdk-17-jdk
+            sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+            sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
+            java -version
 
       - run:
           name: Resolve dependencies 

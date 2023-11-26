@@ -1,5 +1,4 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/bosankus/Weatherify-MVP/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/bosankus/Weatherify-MVP/tree/master)  
-[![CodeFactor](https://www.codefactor.io/repository/github/bosankus/weatherify-mvp/badge?style=plastic)](https://www.codefactor.io/repository/github/bosankus/weatherify-mvp/stats)
+[![Build](https://dl.circleci.com/status-badge/img/gh/bosankus/Weatherify-MVP/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/bosankus/Weatherify-MVP/tree/master) [![Code Quality](https://www.codefactor.io/repository/github/bosankus/weatherify-mvp/badge?style=plastic)](https://www.codefactor.io/repository/github/bosankus/weatherify-mvp/stats)
 
 # Android Services
 

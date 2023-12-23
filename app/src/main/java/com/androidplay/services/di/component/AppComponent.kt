@@ -1,11 +1,14 @@
 package com.androidplay.services.di.component
 
-import com.androidplay.services.MainActivity
-import com.androidplay.services.di.module.AppModule
-import com.androidplay.services.di.module.BindingModule
-import com.androidplay.services.di.module.ContextModule
-import com.androidplay.services.di.module.MainModule
+import com.androidplay.services.WeatherifyMVPApplication
+import com.androidplay.services.di.module.BindFragmentModule
+import com.androidplay.services.di.module.ViewModelModule
+import com.androidplay.services.di.module.WeatherAlarmConfigurationModule
+import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import javax.inject.Singleton
 
 /**
@@ -16,13 +19,22 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        AppModule::class,
-        ContextModule::class,
-        MainModule::class,
-        BindingModule::class
+        BindFragmentModule::class,
+        AndroidInjectionModule::class,
+        WeatherAlarmConfigurationModule::class,
+        ViewModelModule::class,
     ]
 )
-interface AppComponent {
+interface AppComponent : AndroidInjector<DaggerApplication> {
 
-    fun inject(target: MainActivity)
+    @Component.Builder
+    interface Builder {
+
+        @BindsInstance
+        fun app(application: WeatherifyMVPApplication): Builder
+
+        fun build(): AppComponent
+    }
+
+    override fun inject(instance: DaggerApplication?)
 }

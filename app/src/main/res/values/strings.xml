@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Weatherify MVP</string>
     <string name="fetch">Fetch</string>
+    <string name="schedule">Schedule</string>
     <string name="area_name_hint">Search city name</string>
     <string name="default_text">--</string>
     <string name="empty_area_name_text">Area name can not be empty</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

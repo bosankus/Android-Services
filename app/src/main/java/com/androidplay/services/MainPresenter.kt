@@ -1,7 +1,6 @@
 package com.androidplay.services
 
 import com.androidplay.services.model.model.Weather
-import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
@@ -10,7 +9,7 @@ import javax.inject.Singleton
  * Created on: 12,March,2022
  */
 @Singleton
-class MainPresenter @Inject constructor(private val interactor: BaseContract.Interactor) : BaseContract.Presenter,
+class MainPresenter(private val interactor: BaseContract.Interactor) : BaseContract.Presenter,
     BaseContract.Interactor.OnFinishedListener {
 
     private var view: BaseContract.View? = null

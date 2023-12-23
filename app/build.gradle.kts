@@ -45,9 +45,12 @@ android {
 
 dependencies {
 
+    // weather-alarm module
+    implementation(project(":weather-alarm"))
+
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.multidex:multidex:2.0.1")
 
@@ -74,8 +77,10 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // Dagger
-    implementation("com.google.dagger:dagger:2.48.1")
-    ksp("com.google.dagger:dagger-compiler:2.48.1")
+    implementation("com.google.dagger:dagger:2.49")
+    implementation("com.google.dagger:dagger-android-support:2.49")
+    ksp("com.google.dagger:dagger-compiler:2.49")
+    ksp("com.google.dagger:dagger-android-processor:2.49")
 
     // Unit test
     testImplementation("junit:junit:4.13.2")
@@ -84,6 +89,7 @@ dependencies {
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.11")
     testImplementation("com.google.truth:truth:1.1.5")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2")
 
     // UI test
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

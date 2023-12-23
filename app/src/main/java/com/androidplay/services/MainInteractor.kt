@@ -10,14 +10,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
-import javax.inject.Inject
 
 /**
  * Author: Ankush Bose
  * Company: Androidplay.in
  * Created on: 12,March,2022
  */
-class MainInteractor @Inject constructor(
+class MainInteractor(
     private val repository: WeatherRepository,
     private val dispatcher: DispatcherProvider,
     private val scope: CoroutineScope,
@@ -25,7 +24,7 @@ class MainInteractor @Inject constructor(
 
     override fun requestData(
         areaName: String,
-        onFinishedListener: BaseContract.Interactor.OnFinishedListener
+        onFinishedListener: BaseContract.Interactor.OnFinishedListener,
     ) {
         scope.launch {
             try {

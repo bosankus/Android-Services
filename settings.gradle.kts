@@ -8,4 +8,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Weatherify-MVP"
-include (":app")
+include (":app", ":weather-alarm")

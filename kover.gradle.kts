@@ -16,6 +16,7 @@ koverMerged {
                 "**/*Dagger.*",
                 "di/**",
                 "dispatcher/**"
+                "model/model/**"
             )
         }
     }

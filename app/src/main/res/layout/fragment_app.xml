@@ -53,19 +53,33 @@
         android:textAlignment="center"
         android:textSize="@dimen/text_18" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/app_fragment_bt_fetch"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_16"
+        android:layout_marginEnd="@dimen/gap_16"
         android:text="@string/fetch"
         android:textAllCaps="false" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/app_fragment_bt_schedule"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_16"
+        android:layout_marginEnd="@dimen/gap_16"
         android:backgroundTint="@android:color/holo_green_light"
         android:text="@string/schedule"
+        android:textAllCaps="false" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/app_fragment_bt_foreground_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_16"
+        android:layout_marginEnd="@dimen/gap_16"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="@string/foreground_service"
         android:textAllCaps="false" />
 
 </LinearLayout>

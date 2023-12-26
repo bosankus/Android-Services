@@ -6,6 +6,7 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlinx.kover")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -81,6 +82,11 @@ dependencies {
     implementation("com.google.dagger:dagger-android-support:2.49")
     ksp("com.google.dagger:dagger-compiler:2.49")
     ksp("com.google.dagger:dagger-android-processor:2.49")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-config")
 
     // Unit test
     testImplementation("junit:junit:4.13.2")

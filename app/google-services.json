@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "613226491010",
+    "project_id": "weatherify-mvp",
+    "storage_bucket": "weatherify-mvp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613226491010:android:164c263defeb38d5dd589b",
+        "android_client_info": {
+          "package_name": "com.androidplay.services"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWC5SVcSjVecefSZKxSEqTJfj5Iw8UhFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

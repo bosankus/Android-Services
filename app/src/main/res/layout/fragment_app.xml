@@ -76,7 +76,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/app_fragment_weather_layout"
+                android:id="@+id/app_fragment_fetch_temperature_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/gap_16"
@@ -90,7 +90,7 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.progressindicator.LinearProgressIndicator
-                        android:id="@+id/app_fragment_progress"
+                        android:id="@+id/app_fragment_fetch_temperature_progress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -101,7 +101,7 @@
                         app:trackCornerRadius="5dp" />
 
                     <TextView
-                        android:id="@+id/app_fragment_temperature"
+                        android:id="@+id/app_fragment_fetch_temperature_temp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/gap_16"
@@ -112,7 +112,7 @@
                         android:textSize="@dimen/text_28" />
 
                     <TextView
-                        android:id="@+id/app_fragment_city_name"
+                        android:id="@+id/app_fragment_fetch_temperature_city_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/gap_16"
@@ -123,7 +123,7 @@
                         android:textSize="@dimen/text_18" />
 
                     <EditText
-                        android:id="@+id/app_fragment_et_area_name"
+                        android:id="@+id/app_fragment_fetch_temperature_et_area_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -136,7 +136,7 @@
                         android:textSize="@dimen/text_18" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/app_fragment_bt_fetch"
+                        android:id="@+id/app_fragment_fetch_temperature_bt_fetch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/fetch"
@@ -148,7 +148,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/app_fragment_schedule_layout"
+                android:id="@+id/app_fragment_alarm_schedule_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/gap_16"
@@ -162,7 +162,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/app_fragment_schedule_txt"
+                        android:id="@+id/app_fragment_alarm_schedule_txt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/gap_16"
@@ -170,7 +170,7 @@
                         android:textSize="@dimen/text_18" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/app_fragment_bt_schedule"
+                        android:id="@+id/app_fragment_bt_alarm_schedule"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@android:color/holo_green_light"

@@ -16,7 +16,11 @@ import com.androidplay.services.R
 import com.androidplay.services.databinding.FragmentAppBinding
 import com.androidplay.services.model.model.Weather
 import com.androidplay.services.model.persistance.DataStoreManager
+import com.androidplay.services.model.repository.FeatureToggler
 import com.androidplay.services.utils.Constants
+import com.androidplay.services.utils.Constants.ALARM_SCHEDULE_FLAG
+import com.androidplay.services.utils.Constants.FETCH_TEMPERATURE_FLAG
+import com.androidplay.services.utils.Constants.FOREGROUND_SERVICE_FLAG
 import com.androidplay.services.utils.Extensions.hideSoftKeyboard
 import com.androidplay.services.utils.Extensions.parcelable
 import com.androidplay.services.utils.Extensions.toCelsius
@@ -72,6 +76,29 @@ class AppFragment : Fragment(), BaseContract.View {
         savedInstanceState?.parcelable<Weather>(weatherDataKey)?.let { setSuccessData(it) }
     }
 
+    override fun onResume() {
+        super.onResume()
+        checkFeatureAvailability(FETCH_TEMPERATURE_FLAG, binding?.appFragmentFetchTemperatureLayout)
+        checkFeatureAvailability(ALARM_SCHEDULE_FLAG, binding?.appFragmentAlarmScheduleLayout)
+        checkFeatureAvailability(FOREGROUND_SERVICE_FLAG, binding?.appFragmentForegroundServiceLayout
+        )
+    }
+
+    private fun checkFeatureAvailability(
+        key: String,
+        view: View?,
+    ) {
+        when {
+            FeatureToggler.isFeatureAvailable(key) -> {
+                view?.visibility = View.VISIBLE
+            }
+
+            else -> {
+                view?.visibility = View.GONE
+            }
+        }
+    }
+
     private fun collectInitialData(bundle: Bundle?) {
         if (bundle != null) {
             bundle.parcelable<Weather>(weatherDataKey)?.let { setSuccessData(it) }
@@ -92,12 +119,12 @@ class AppFragment : Fragment(), BaseContract.View {
 
     private fun setClickListener() {
         binding?.apply {
-            appFragmentBtFetch.setOnClickListener {
-                val providedAreaName = appFragmentEtAreaName.text.toString().trim()
+            appFragmentFetchTemperatureBtFetch.setOnClickListener {
+                val providedAreaName = appFragmentFetchTemperatureBtFetch.text.toString().trim()
                 fetchTemperatureData(providedAreaName)
             }
 
-            appFragmentBtSchedule.setOnClickListener {
+            appFragmentBtAlarmSchedule.setOnClickListener {
                 val fragment = WeatherAlarmFragment()
                 parentFragmentManager.beginTransaction()
                     .replace((requireView().parent as ViewGroup).id, fragment)
@@ -126,8 +153,8 @@ class AppFragment : Fragment(), BaseContract.View {
         binding?.apply {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    appFragmentTemperature.text = weather.main.temp.toCelsius()
-                    appFragmentCityName.text = weather.name
+                    appFragmentFetchTemperatureTemp.text = weather.main.temp.toCelsius()
+                    appFragmentFetchTemperatureCityName.text = weather.name
                 }
             }
         }
@@ -137,8 +164,9 @@ class AppFragment : Fragment(), BaseContract.View {
         binding?.apply {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    appFragmentTemperature.text = resources.getString(R.string.default_text)
-                    appFragmentCityName.text = error
+                    appFragmentFetchTemperatureTemp.text =
+                        resources.getString(R.string.default_text)
+                    appFragmentFetchTemperatureCityName.text = error
                 }
             }
         }
@@ -147,7 +175,7 @@ class AppFragment : Fragment(), BaseContract.View {
     override fun showProgress() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                binding?.appFragmentProgress?.show()
+                binding?.appFragmentFetchTemperatureProgress?.show()
             }
         }
     }
@@ -155,7 +183,7 @@ class AppFragment : Fragment(), BaseContract.View {
     override fun hideProgress() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                binding?.appFragmentProgress?.hide()
+                binding?.appFragmentFetchTemperatureProgress?.hide()
             }
         }
     }

@@ -70,7 +70,7 @@ class WeatherAlarmFragment : Fragment() {
     // preventing memory leaks
     override fun onDestroyView() {
         super.onDestroyView()
-        // clearing shared viewmodel
+        // clearing shared viewModel
         requireActivity().viewModelStore.clear()
         // clearing binding references
         binding = null

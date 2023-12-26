@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">Weatherify MVP</string>
+    <string name="explore">Explore</string>
+    <string name="greet_message">Hi there</string>
+    <string name="collapsing_toolbar_txt">Delve into service spheres</string>
+    <string name="collapsing_toolbar_sub_txt">Tailored Android delights, ready for your exploration</string>
     <string name="fetch">Fetch</string>
     <string name="schedule">Schedule</string>
-    <string name="foreground_service">Foreground service</string>
+    <string name="schedule_text">Schedule alarmed event. An event can be making network call, or showing a notification. On the next step you will be able to choose a date and time. And can schedule static text notification.</string>
+    <string name="foreground_service_track">Foreground service (Track)</string>
+    <string name="foreground_service_track_txt">Start a foreground service. A foreground service are those which are noticeable to the user. Like music play, or recording audio/video. Here user will be able to track work out. Tracking includes calories burnt, distance walked and realtime map tracking. </string>
     <string name="area_name_hint">Search city name</string>
     <string name="default_text">--</string>
     <string name="empty_area_name_text">Area name can not be empty</string>

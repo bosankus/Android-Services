@@ -147,7 +147,7 @@ class AppFragment : Fragment(), BaseContract.View {
     override fun showProgress() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                binding?.appFragmentProgress?.visibility = View.VISIBLE
+                binding?.appFragmentProgress?.show()
             }
         }
     }
@@ -155,7 +155,7 @@ class AppFragment : Fragment(), BaseContract.View {
     override fun hideProgress() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                binding?.appFragmentProgress?.visibility = View.INVISIBLE
+                binding?.appFragmentProgress?.hide()
             }
         }
     }

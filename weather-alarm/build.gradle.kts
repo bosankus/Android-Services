@@ -9,7 +9,7 @@ android {
     namespace = "com.androidplay.services.weatheralarm"
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 29
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
